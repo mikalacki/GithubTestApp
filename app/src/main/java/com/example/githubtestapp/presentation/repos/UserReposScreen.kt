@@ -13,15 +13,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.githubtestapp.domain.model.Repo
 import com.example.githubtestapp.presentation.common.EmptyContent
 import com.example.githubtestapp.presentation.common.ErrorContent
 import com.example.githubtestapp.presentation.common.LoadingContent
 import com.example.githubtestapp.presentation.common.UiState
+import com.example.githubtestapp.ui.GithubTestAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,6 +34,9 @@ fun UserReposScreen(
     viewModel: UserReposViewModel = hiltViewModel()
 ) {
 
+    LaunchedEffect(Unit) {
+        viewModel.getUserRepos()
+    }
     val state by viewModel.reposState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -89,5 +96,20 @@ fun UserReposScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RepoItemPreview() {
+    GithubTestAppTheme {
+        RepoItem(
+            repo = Repo(
+                id = 1,
+                name = "Hello-World",
+                openIssuesCount = 3
+            ),
+            onClick = {}
+        )
     }
 }

@@ -20,12 +20,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.githubtestapp.domain.model.RepoDetails
+import com.example.githubtestapp.domain.model.RepoTag
 import com.example.githubtestapp.presentation.common.ErrorContent
 import com.example.githubtestapp.presentation.common.LoadingContent
 import com.example.githubtestapp.presentation.common.UiState
+import com.example.githubtestapp.ui.GithubTestAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -108,5 +112,35 @@ fun RepoDetailsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RepoHeaderPreview() {
+    GithubTestAppTheme {
+        RepoHeader(
+            repoDetails = RepoDetails(
+                id = 1,
+                name = "Hello-World",
+                forksCount = 10,
+                watchersCount = 25,
+                ownerName = "octocat",
+                ownerAvatarUrl = ""
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TagItemPreview() {
+    GithubTestAppTheme {
+        TagItem(
+            tag = RepoTag(
+                name = "v1.0.0",
+                commitSha = "abc123def456"
+            )
+        )
     }
 }

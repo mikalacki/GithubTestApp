@@ -20,9 +20,6 @@ class UserReposViewModel @Inject constructor(
     private val _reposState = MutableStateFlow<UiState<List<Repo>>>(UiState.Idle)
     val reposState: StateFlow<UiState<List<Repo>>> = _reposState.asStateFlow()
 
-    init {
-        getUserRepos()
-    }
 
     fun getUserRepos(username: String = "octocat") {
         viewModelScope.launch {
